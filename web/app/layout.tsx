@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ClawScore - OpenClaw Security Scanner",
     description: "Scan your OpenClaw security posture in 30 seconds.",
-    images: ["/og-image.svg"],
+    images: ["/og-image.jpeg"],
   },
 };
 

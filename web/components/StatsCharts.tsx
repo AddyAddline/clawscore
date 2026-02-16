@@ -4,6 +4,12 @@ type DistributionProps = { bins: number[] };
 type IssueProps = { data: Record<string, number> };
 type TrendProps = { points: Array<{ date: string; score: number }> };
 
+function binColor(idx: number): string {
+  if (idx >= 8) return "from-emerald-500/90 to-emerald-400/90";
+  if (idx >= 5) return "from-yellow-500/80 to-yellow-400/80";
+  return "from-red-500/80 to-red-400/80";
+}
+
 export function DistributionChart({ bins }: DistributionProps) {
   const max = Math.max(...bins, 1);
   return (
@@ -11,11 +17,11 @@ export function DistributionChart({ bins }: DistributionProps) {
       <div className="mb-4 flex items-center gap-2 text-sm text-zinc-300">
         <BarChart3 className="h-4 w-4 text-emerald-400" /> Score Distribution
       </div>
-      <div className="grid h-36 grid-cols-10 items-end gap-2">
+      <div className="grid h-40 grid-cols-10 items-end gap-2">
         {bins.map((value, idx) => (
           <div key={idx} className="group flex h-full flex-col justify-end">
             <div
-              className="rounded-t bg-gradient-to-t from-emerald-500/80 to-cyan-400/80 transition-all group-hover:from-emerald-400"
+              className={`rounded-t bg-gradient-to-t transition-all duration-200 group-hover:scale-105 ${binColor(idx)}`}
               style={{ height: `${Math.max(10, (value / max) * 100)}%` }}
             />
             <span className="mt-2 text-center font-mono text-[10px] text-zinc-500">{idx * 10}</span>
@@ -45,7 +51,7 @@ export function IssueChart({ data }: IssueProps) {
                 <span>{pct}%</span>
               </div>
               <div className="h-2 rounded bg-zinc-800">
-                <div className="h-full rounded bg-yellow-400/80" style={{ width: `${pct}%` }} />
+                <div className="h-full rounded bg-yellow-400/80 transition-all duration-300" style={{ width: `${pct}%` }} />
               </div>
             </div>
           );
@@ -65,7 +71,7 @@ export function TrendChart({ points }: TrendProps) {
       <div className="mb-4 flex items-center gap-2 text-sm text-zinc-300">
         <TrendingUp className="h-4 w-4 text-cyan-400" /> Trend Over Time
       </div>
-      <div className="relative h-40 rounded border border-zinc-800 bg-black/20 p-3">
+      <div className="relative h-44 rounded border border-zinc-800 bg-black/20 p-3">
         <svg viewBox="0 0 300 120" className="h-full w-full">
           <polyline
             fill="none"

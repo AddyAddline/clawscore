@@ -4,10 +4,14 @@ import { ScanChecks } from "@/lib/types";
 export function CheckBreakdown({ checks }: { checks: ScanChecks }) {
   return (
     <div className="space-y-3">
-      {Object.entries(checks).map(([key, value]) => {
+      {Object.entries(checks).map(([key, value], i) => {
         const pct = Math.round((value.score / value.max) * 100);
         return (
-          <details key={key} className="terminal-panel rounded-xl border border-zinc-800 bg-[#0b0d0c]/70 p-4 open:border-zinc-600">
+          <details
+            key={key}
+            className="terminal-panel animate-fade-in-up rounded-xl border border-zinc-800 bg-[#0b0d0c]/70 p-4 open:border-emerald-500/30"
+            style={{ animationDelay: `${i * 60}ms` }}
+          >
             <summary className="cursor-pointer list-none">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>

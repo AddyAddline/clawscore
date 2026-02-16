@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 import "./globals.css";
 
@@ -25,17 +26,26 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <div className="page-noise" />
         <header className="sticky top-0 z-20 border-b border-zinc-800/80 bg-black/60 backdrop-blur">
           <nav className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 md:px-6">
-            <Link href="/" className="font-mono text-sm tracking-widest text-emerald-400">
-              [ CLAWSCORE ]
+            <Link href="/" className="flex items-center gap-2.5">
+              <Image
+                src="/favicon.png"
+                alt="ClawScore logo"
+                width={24}
+                height={24}
+                className="opacity-90"
+              />
+              <span className="font-mono text-sm tracking-widest text-emerald-400">
+                [ CLAWSCORE ]
+              </span>
             </Link>
             <div className="flex items-center gap-4 text-xs text-zinc-300">
-              <Link className="hover:text-emerald-300" href="/stats">
+              <Link className="transition-colors hover:text-emerald-300" href="/stats">
                 STATS
               </Link>
-              <Link className="hover:text-emerald-300" href="/skills">
+              <Link className="transition-colors hover:text-emerald-300" href="/skills">
                 SKILLS
               </Link>
-              <Link className="hover:text-emerald-300" href="/r/x7Kj9mP">
+              <Link className="transition-colors hover:text-emerald-300" href="/r/x7Kj9mP">
                 SAMPLE REPORT
               </Link>
             </div>

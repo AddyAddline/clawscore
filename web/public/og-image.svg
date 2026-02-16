@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22c55e" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#3b82f6" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect x="60" y="60" width="1080" height="510" rx="22" fill="url(#g)" opacity="0.25"/>
+  <text x="110" y="220" fill="#fafafa" font-family="JetBrains Mono, monospace" font-size="72">ClawScore</text>
+  <text x="110" y="290" fill="#a1a1aa" font-family="JetBrains Mono, monospace" font-size="34">OpenClaw Security Scanner</text>
+  <text x="110" y="370" fill="#22c55e" font-family="JetBrains Mono, monospace" font-size="28">Is your OpenClaw secure?</text>
+  <text x="110" y="430" fill="#3b82f6" font-family="JetBrains Mono, monospace" font-size="24">clawscore.setupmyclaw.in</text>
+</svg>

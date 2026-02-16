@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="280" viewBox="0 0 640 280" fill="none">
+  <rect width="640" height="280" fill="#0a0a0a"/>
+  <text x="22" y="46" fill="#22c55e" font-family="JetBrains Mono, monospace" font-size="20">
+    ⠀⠀⠀⠀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+  </text>
+  <text x="22" y="78" fill="#22c55e" font-family="JetBrains Mono, monospace" font-size="20">
+    CLAWSCORE // OPENCLAW SECURITY TERMINAL
+  </text>
+  <text x="22" y="120" fill="#3b82f6" font-family="JetBrains Mono, monospace" font-size="18">
+    curl -sSL clawscore.setupmyclaw.in/scan | bash
+  </text>
+  <text x="22" y="158" fill="#eab308" font-family="JetBrains Mono, monospace" font-size="16">
+    [scan] probing | [scan] scoring | [scan] report ready
+  </text>
+</svg>

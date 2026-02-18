@@ -1,0 +1,32 @@
+name: Deploy via Author Swap
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  swap-author-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging
+        uses: actions/checkout@v4
+        with:
+          ref: staging
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Configure Git as Advit
+        run: |
+          git config user.name "AddyAddline"
+          git config user.email "21ucc013@lnmiit.ac.in"
+
+      - name: Get latest commit message
+        id: commit
+        run: echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+
+      - name: Push to main with new author
+        run: |
+          git checkout main
+          git merge staging --squash
+          git commit -m "${{ steps.commit.outputs.message }}" --author="AddyAddline <21ucc013@lnmiit.ac.in>"
+          git push origin main

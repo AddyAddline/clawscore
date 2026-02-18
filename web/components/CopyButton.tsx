@@ -22,23 +22,19 @@ export function CopyButton({ text, label, size = "sm" }: CopyButtonProps) {
     }
   }
 
-  const iconSize = size === "sm" ? "h-3.5 w-3.5" : "h-4 w-4";
-  const padding = size === "sm" ? "px-2 py-1 text-xs" : "px-3 py-1.5 text-sm";
+  const iconSize = size === "sm" ? "h-3 w-3" : "h-3.5 w-3.5";
+  const padding = size === "sm" ? "px-2 py-1 text-xs" : "px-2.5 py-1.5 text-xs";
 
   return (
     <button
       onClick={handleCopy}
-      className={`inline-flex items-center gap-1.5 rounded-md border transition ${padding} ${
+      className={`inline-flex items-center gap-1.5 rounded-lg transition-all active:scale-95 ${padding} ${
         copied
-          ? "border-emerald-500/50 bg-emerald-500/15 text-emerald-300"
-          : "border-zinc-700 bg-zinc-800/50 text-zinc-400 hover:border-zinc-600 hover:text-zinc-300"
+          ? "bg-emerald-500/15 text-emerald-400"
+          : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300"
       }`}
     >
-      {copied ? (
-        <Check className={iconSize} />
-      ) : (
-        <Copy className={iconSize} />
-      )}
+      {copied ? <Check className={iconSize} /> : <Copy className={iconSize} />}
       {label ?? (copied ? "Copied" : "Copy")}
     </button>
   );

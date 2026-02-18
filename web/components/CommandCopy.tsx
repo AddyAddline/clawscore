@@ -17,20 +17,19 @@ export function CommandCopy({ command }: { command: string }) {
   }
 
   return (
-    <div className="terminal-panel terminal-glow group relative overflow-hidden rounded-2xl border border-zinc-700/70 bg-[#0b0d0c]/90 p-4">
-      <div className="scanline-overlay" />
-      <div className="mb-3 flex items-center gap-2 text-xs text-zinc-400">
-        <Terminal className="h-4 w-4 text-emerald-400" />
-        <span>Run once to scan and get your report</span>
+    <div className="cmd-glow rounded-2xl bg-[var(--bg-card)] p-5">
+      <div className="mb-3 flex items-center gap-2 text-xs text-zinc-500">
+        <Terminal className="h-3.5 w-3.5 text-emerald-400" />
+        Run this to scan your setup
       </div>
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <code className="font-mono text-sm text-emerald-300 md:text-base">{command}</code>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <code className="font-mono text-[15px] text-emerald-300">{command}</code>
         <button
           onClick={onCopy}
-          className="inline-flex items-center justify-center gap-2 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300 transition hover:bg-emerald-500/20"
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-emerald-500/15 px-4 py-2.5 text-sm font-medium text-emerald-300 transition-all hover:bg-emerald-500/25 active:scale-[0.98]"
         >
           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-          {copied ? "Copied!" : "Copy Command"}
+          {copied ? "Copied!" : "Copy"}
         </button>
       </div>
     </div>

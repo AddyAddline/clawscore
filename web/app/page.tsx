@@ -36,49 +36,50 @@ export default function Home() {
     name: "ClawScore",
     applicationCategory: "SecurityApplication",
     operatingSystem: "Linux, macOS, Windows",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     description: "Free community security scanner for OpenClaw. Check your setup in 30 seconds.",
     url: "https://clawscore.setupmyclaw.in",
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-4 pb-16 pt-10 md:px-6">
+    <main className="mx-auto max-w-5xl px-6 pb-20 pt-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       {/* ===== Hero ===== */}
-      <section className="animate-fade-in relative overflow-hidden rounded-3xl border border-zinc-800 bg-[radial-gradient(circle_at_20%_20%,rgba(34,197,94,0.18),transparent_45%),radial-gradient(circle_at_85%_15%,rgba(59,130,246,0.2),transparent_38%),#0b0b0b] p-8 md:p-12">
-        <div className="scanline-overlay" />
-
+      <section className="animate-fade-in">
         <BrandLogo size="lg" />
 
-        <h1 className="mt-6 max-w-3xl text-4xl font-semibold tracking-tight text-zinc-50 md:text-6xl">
-          Help your <span className="gradient-text">OpenClaw</span> stay secure
+        <h1 className="mt-8 max-w-2xl font-[family-name:var(--font-display)] text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.1] tracking-tight text-zinc-50">
+          Is your OpenClaw
+          <br />
+          <span className="text-emerald-400">secure?</span>
         </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-300 md:text-xl">
-          A free, open-source security scanner built by the community, for the community. Check your setup in 30 seconds and get actionable fixes.
+
+        <p className="mt-5 max-w-lg text-[17px] leading-relaxed text-zinc-400">
+          Free, open-source security scanner built by the community.
+          Check your setup in 30 seconds. Get a score and actionable fixes.
         </p>
 
-        <div className="mt-8">
+        <div className="mt-10 max-w-2xl">
           <CommandCopy command={commandToRun} />
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-6 font-mono text-sm text-zinc-400">
-          <span>
-            <AnimatedCounter end={stats.totalScans} className="text-emerald-400" /> scans
-          </span>
-          <span>
-            Avg score: <AnimatedCounter end={stats.averageScore} className="text-yellow-400" />/100
-          </span>
-          <span>
-            <AnimatedCounter end={stats.cvePatched} suffix="%" className="text-cyan-400" /> CVE patched
-          </span>
+        <div className="mt-8 flex flex-wrap items-center gap-8 text-sm text-zinc-500">
+          <div>
+            <AnimatedCounter end={stats.totalScans} className="font-mono text-lg font-semibold text-zinc-200" />
+            <span className="ml-1.5">scans run</span>
+          </div>
+          <div>
+            <AnimatedCounter end={stats.averageScore} className="font-mono text-lg font-semibold text-zinc-200" />
+            <span className="ml-1">/100 avg score</span>
+          </div>
+          <div>
+            <AnimatedCounter end={stats.cvePatched} suffix="%" className="font-mono text-lg font-semibold text-zinc-200" />
+            <span className="ml-1.5">CVE patched</span>
+          </div>
         </div>
       </section>
 
@@ -86,174 +87,134 @@ export default function Home() {
       <HowItWorks />
 
       {/* ===== What We Check ===== */}
-      <section className="mt-14">
-        <h2 className="mb-6 font-mono text-sm uppercase tracking-[0.2em] text-zinc-400">What We Check</h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <section className="mt-20">
+        <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold text-zinc-100">
+          7 security checks
+        </h2>
+        <p className="mt-2 text-sm text-zinc-500">Every scan covers these categories</p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {checks.map((item, i) => (
-            <article
+            <div
               key={item.label}
-              className="terminal-panel animate-fade-in-up rounded-2xl border border-zinc-800 bg-[#0b0d0c]/70 p-5 transition hover:border-zinc-600"
-              style={{ animationDelay: `${i * 80}ms` }}
+              className="card animate-fade-in-up p-4"
+              style={{ animationDelay: `${i * 60}ms` }}
             >
-              <item.icon className="mb-3 h-5 w-5 text-emerald-400" />
-              <h3 className="font-medium text-zinc-100">{item.label}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-zinc-400">{item.text}</p>
-            </article>
+              <item.icon className="mb-2.5 h-4 w-4 text-emerald-400/80" />
+              <p className="text-sm font-medium text-zinc-200">{item.label}</p>
+              <p className="mt-1 text-xs leading-relaxed text-zinc-500">{item.text}</p>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* ===== See What You Get + Community Pulse ===== */}
-      <section className="mt-14 grid gap-6 lg:grid-cols-2">
-        <article className="terminal-panel animate-slide-in-left rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5">
-          <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-400">See What You Get</h2>
+      {/* ===== Preview + Community ===== */}
+      <section className="mt-20 grid gap-5 lg:grid-cols-2">
+        <div className="card p-5">
+          <p className="text-sm font-medium text-zinc-200">See what you get</p>
           <div className="mt-4">
             <TypewriterTerminal lines={typingLines} speed={25} lineDelay={350} />
           </div>
           <Link
             href="/r/x7Kj9mP"
-            className="mt-4 inline-block text-sm text-cyan-300 transition-colors hover:text-cyan-200"
+            className="mt-4 inline-block text-sm text-emerald-400 transition-colors hover:text-emerald-300"
           >
             View full sample report &rarr;
           </Link>
-        </article>
+        </div>
 
-        <article className="terminal-panel animate-slide-in-right rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5">
-          <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-400">Community Pulse</h2>
-          <ul className="mt-4 space-y-3 text-sm text-zinc-300">
+        <div className="card p-5">
+          <p className="text-sm font-medium text-zinc-200">Community pulse</p>
+          <div className="mt-4 space-y-2">
             {recentActivity.map((line, i) => (
-              <li
+              <div
                 key={line}
-                className="animate-fade-in-up flex items-start gap-2.5 rounded border border-zinc-800 bg-black/30 px-3 py-2.5"
-                style={{ animationDelay: `${i * 100}ms` }}
+                className="flex items-start gap-3 rounded-xl bg-[var(--bg-primary)] px-3.5 py-2.5 text-sm text-zinc-400"
               >
-                <span className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-emerald-500/80" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                 {line}
-              </li>
+              </div>
             ))}
-          </ul>
-        </article>
-      </section>
-
-      {/* ===== Live Stats Preview ===== */}
-      <section className="mt-14">
-        <h2 className="mb-6 font-mono text-sm uppercase tracking-[0.2em] text-zinc-400">Community Stats</h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="terminal-panel animate-fade-in-up rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5">
-            <p className="text-xs text-zinc-500">Total scans</p>
-            <AnimatedCounter end={stats.totalScans} className="font-mono text-3xl text-emerald-300" />
-          </div>
-          <div className="terminal-panel animate-fade-in-up rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5" style={{ animationDelay: "100ms" }}>
-            <p className="text-xs text-zinc-500">Average score</p>
-            <AnimatedCounter end={stats.averageScore} suffix="/100" className="font-mono text-3xl text-yellow-300" />
-          </div>
-          <div className="terminal-panel animate-fade-in-up rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5" style={{ animationDelay: "200ms" }}>
-            <p className="text-xs text-zinc-500">CVE patched</p>
-            <AnimatedCounter end={stats.cvePatched} suffix="%" className="font-mono text-3xl text-emerald-300" />
-          </div>
-          <div className="terminal-panel animate-fade-in-up rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5" style={{ animationDelay: "300ms" }}>
-            <p className="text-xs text-zinc-500">Scans today</p>
-            <AnimatedCounter end={stats.scansToday} className="font-mono text-3xl text-cyan-300" />
           </div>
         </div>
       </section>
 
-      {/* ===== FAQ + Top Remediations ===== */}
-      <section className="mt-14 grid gap-6 lg:grid-cols-2">
-        <article className="terminal-panel rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5">
-          <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-400">Frequently Asked Questions</h2>
-          <div className="mt-4 space-y-3">
-            <details className="rounded border border-zinc-800 bg-black/30 p-3">
-              <summary className="cursor-pointer text-sm text-zinc-200">Is it safe to run?</summary>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                Yes. The scanner is fully auditable shell script. It reads local config, runs no background processes, and only uploads with your explicit consent.
-              </p>
-            </details>
-            <details className="rounded border border-zinc-800 bg-black/30 p-3">
-              <summary className="cursor-pointer text-sm text-zinc-200">What data is uploaded?</summary>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                Version, category scores, skill names, and a hashed machine ID. No keys, secrets, or file contents ever leave your machine.
-              </p>
-            </details>
-            <details className="rounded border border-zinc-800 bg-black/30 p-3">
-              <summary className="cursor-pointer text-sm text-zinc-200">How is the score calculated?</summary>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                Weighted checks across 7 categories: version, auth, network, skills, permissions, process, and TLS. Each contributes to a 0-100 score.
-              </p>
-            </details>
-            <details className="rounded border border-zinc-800 bg-black/30 p-3">
-              <summary className="cursor-pointer text-sm text-zinc-200">Can I run it without uploading?</summary>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                Absolutely. Use <code className="text-emerald-300">--local</code> to keep everything on your machine, or <code className="text-emerald-300">--anonymous</code> to upload without any machine identifier.
-              </p>
-            </details>
+      {/* ===== FAQ + Remediations ===== */}
+      <section className="mt-20 grid gap-5 lg:grid-cols-2">
+        <div>
+          <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold text-zinc-100">FAQ</h2>
+          <div className="mt-5 space-y-2">
+            {[
+              { q: "Is it safe to run?", a: "Yes. It's a fully auditable shell script that reads local config and only uploads with your explicit consent." },
+              { q: "What data is uploaded?", a: "Version, category scores, skill names, and a hashed machine ID. No keys, secrets, or file contents ever leave your machine." },
+              { q: "How is the score calculated?", a: "Weighted checks across 7 categories: version, auth, network, skills, permissions, process, and TLS." },
+              { q: "Can I run it offline?", a: "Yes. Use --local to keep everything on your machine, or --anonymous to upload without any identifier." },
+            ].map((faq) => (
+              <details key={faq.q} className="card group p-4 open:border-[var(--border-hover)]">
+                <summary className="cursor-pointer list-none text-sm font-medium text-zinc-200">{faq.q}</summary>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-500">{faq.a}</p>
+              </details>
+            ))}
           </div>
-        </article>
+        </div>
 
-        <article className="terminal-panel rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5">
-          <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-400">Top Remediations</h2>
-          <p className="mt-2 text-xs text-zinc-500">Most common fixes across the community</p>
-          <ol className="mt-4 space-y-3">
+        <div>
+          <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold text-zinc-100">Top fixes</h2>
+          <p className="mt-1 text-xs text-zinc-500">Most common remediations across the community</p>
+          <div className="mt-5 space-y-2">
             {sampleFixes.slice(0, 3).map((fix) => (
-              <li key={fix.title} className="rounded border border-zinc-800 bg-black/30 px-3 py-3 text-sm text-zinc-300">
-                <span className={`mr-2 inline-block rounded-full border px-2 py-0.5 text-xs uppercase ${levelColor(fix.severity)}`}>
+              <div key={fix.title} className="card flex items-start gap-3 p-4">
+                <span className={`mt-0.5 shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase ${levelColor(fix.severity)}`}>
                   {fix.severity}
                 </span>
-                {fix.title}
-              </li>
+                <span className="text-sm text-zinc-300">{fix.title}</span>
+              </div>
             ))}
-          </ol>
+          </div>
           <Link
             href="/r/x7Kj9mP"
-            className="mt-4 inline-block text-sm text-emerald-300 transition-colors hover:text-emerald-200"
+            className="mt-4 inline-block text-sm text-emerald-400 transition-colors hover:text-emerald-300"
           >
             See full fix playbook &rarr;
           </Link>
-        </article>
+        </div>
       </section>
 
       {/* ===== Footer ===== */}
-      <footer className="mt-16 border-t border-zinc-800 pt-8">
-        <div className="grid gap-8 md:grid-cols-3">
+      <footer className="mt-24 border-t pt-10">
+        <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <BrandLogo size="sm" />
-              <span className="font-mono text-xs tracking-widest text-emerald-400">CLAWSCORE</span>
+              <span className="font-[family-name:var(--font-display)] text-sm font-semibold text-zinc-200">ClawScore</span>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-zinc-500">
               Open-source security scanner built by the community, for the community. Free forever.
             </p>
           </div>
           <div>
-            <p className="font-mono text-xs uppercase tracking-widest text-zinc-500">Links</p>
+            <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">Links</p>
             <div className="mt-3 flex flex-col gap-2 text-sm text-zinc-400">
-              <a href="https://github.com/AddyAddline/clawscore" target="_blank" rel="noreferrer" className="transition-colors hover:text-zinc-200">
-                GitHub
-              </a>
-              <Link href="/stats" className="transition-colors hover:text-zinc-200">
-                Community Stats
-              </Link>
-              <Link href="/privacy" className="transition-colors hover:text-zinc-200">
-                Privacy Policy
-              </Link>
+              <a href="https://github.com/AddyAddline/clawscore" target="_blank" rel="noreferrer" className="transition-colors hover:text-zinc-200">GitHub</a>
+              <Link href="/stats" className="transition-colors hover:text-zinc-200">Community Stats</Link>
+              <Link href="/privacy" className="transition-colors hover:text-zinc-200">Privacy</Link>
             </div>
           </div>
           <div>
-            <p className="font-mono text-xs uppercase tracking-widest text-zinc-500">Need help?</p>
-            <p className="mt-3 text-sm text-zinc-400">
-              SetupMyClaw offers guided hardening for teams running OpenClaw in production.
+            <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">Support</p>
+            <p className="mt-3 text-sm text-zinc-500">
+              SetupMyClaw offers guided hardening for production OpenClaw deployments.
             </p>
             <a
               href="https://setupmyclaw.in"
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-block rounded border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300 transition hover:bg-emerald-500/20"
+              className="mt-3 inline-block rounded-lg bg-emerald-500/10 px-3.5 py-2 text-sm font-medium text-emerald-400 transition-all hover:bg-emerald-500/20"
             >
               Visit SetupMyClaw
             </a>
           </div>
         </div>
-        <p className="mt-8 pb-2 text-center font-mono text-xs text-zinc-600">
+        <p className="mt-10 text-center text-xs text-zinc-600">
           Built with care for the OpenClaw community
         </p>
       </footer>

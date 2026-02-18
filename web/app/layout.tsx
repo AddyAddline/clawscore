@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, JetBrains_Mono } from "next/font/google";
+import { DM_Sans, Geist, JetBrains_Mono } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const jetbrainsMono = JetBrains_Mono({ variable: "--font-jetbrains", subsets: ["latin"] });
+const dmSans = DM_Sans({ variable: "--font-dm-sans", subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://clawscore.setupmyclaw.in"),
@@ -22,31 +23,30 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${jetbrainsMono.variable} bg-[#0a0a0a] text-zinc-100 antialiased`}>
+      <body className={`${geistSans.variable} ${jetbrainsMono.variable} ${dmSans.variable} bg-[var(--bg-primary)] text-zinc-100 antialiased`}>
         <div className="page-noise" />
-        <header className="sticky top-0 z-20 border-b border-zinc-800/80 bg-black/60 backdrop-blur">
-          <nav className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 md:px-6">
-            <Link href="/" className="flex items-center gap-2.5">
+        <header className="sticky top-0 z-20 border-b bg-[var(--bg-primary)]/80 backdrop-blur-xl">
+          <nav className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-6">
+            <Link href="/" className="flex items-center gap-3">
               <Image
                 src="/favicon.png"
-                alt="ClawScore logo"
-                width={24}
-                height={24}
-                className="opacity-90"
+                alt="ClawScore"
+                width={28}
+                height={28}
               />
-              <span className="font-mono text-sm tracking-widest text-emerald-400">
-                [ CLAWSCORE ]
+              <span className="font-[family-name:var(--font-display)] text-[15px] font-semibold tracking-tight text-zinc-100">
+                ClawScore
               </span>
             </Link>
-            <div className="flex items-center gap-4 text-xs text-zinc-300">
-              <Link className="transition-colors hover:text-emerald-300" href="/stats">
-                STATS
+            <div className="flex items-center gap-6 text-[13px] text-zinc-400">
+              <Link className="transition-colors hover:text-zinc-100" href="/stats">
+                Stats
               </Link>
-              <Link className="transition-colors hover:text-emerald-300" href="/skills">
-                SKILLS
+              <Link className="transition-colors hover:text-zinc-100" href="/skills">
+                Skills
               </Link>
-              <Link className="transition-colors hover:text-emerald-300" href="/r/x7Kj9mP">
-                SAMPLE REPORT
+              <Link className="transition-colors hover:text-zinc-100" href="/r/x7Kj9mP">
+                Sample Report
               </Link>
             </div>
           </nav>

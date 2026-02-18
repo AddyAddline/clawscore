@@ -48,7 +48,6 @@ export function TypewriterTerminal({
       return () => clearTimeout(timer);
     }
 
-    // Line complete — move to next after delay
     const timer = setTimeout(() => {
       setDisplayedLines((prev) => [...prev, line]);
       setCurrentLine((l) => l + 1);
@@ -66,17 +65,15 @@ export function TypewriterTerminal({
   return (
     <pre
       ref={ref}
-      className="typing-screen rounded-lg border border-zinc-800 bg-black/40 p-4 text-sm text-emerald-300"
+      className="typing-screen rounded-xl bg-[var(--bg-primary)] p-4 font-mono text-sm leading-relaxed text-emerald-400/90"
     >
       {displayedLines.map((line, i) => (
-        <div key={i}>{line}</div>
+        <div key={i} className="text-emerald-400/70">{line}</div>
       ))}
       {currentLine < lines.length && (
         <div>
           {partialLine}
-          <span className="inline-block w-2 animate-pulse bg-emerald-400">
-            &nbsp;
-          </span>
+          <span className="ml-0.5 inline-block h-4 w-1.5 animate-pulse rounded-sm bg-emerald-400" />
         </div>
       )}
     </pre>

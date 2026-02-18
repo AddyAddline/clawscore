@@ -5,26 +5,30 @@ type IssueProps = { data: Record<string, number> };
 type TrendProps = { points: Array<{ date: string; score: number }> };
 
 function binColor(idx: number): string {
-  if (idx >= 8) return "from-emerald-500/90 to-emerald-400/90";
-  if (idx >= 5) return "from-yellow-500/80 to-yellow-400/80";
-  return "from-red-500/80 to-red-400/80";
+  if (idx >= 8) return "#34d399";
+  if (idx >= 5) return "#fbbf24";
+  return "#f87171";
 }
 
 export function DistributionChart({ bins }: DistributionProps) {
   const max = Math.max(...bins, 1);
   return (
-    <section className="terminal-panel rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5">
-      <div className="mb-4 flex items-center gap-2 text-sm text-zinc-300">
+    <section className="card p-5">
+      <div className="mb-5 flex items-center gap-2 text-sm font-medium text-zinc-200">
         <BarChart3 className="h-4 w-4 text-emerald-400" /> Score Distribution
       </div>
-      <div className="grid h-40 grid-cols-10 items-end gap-2">
+      <div className="grid h-40 grid-cols-10 items-end gap-1.5">
         {bins.map((value, idx) => (
           <div key={idx} className="group flex h-full flex-col justify-end">
             <div
-              className={`rounded-t bg-gradient-to-t transition-all duration-200 group-hover:scale-105 ${binColor(idx)}`}
-              style={{ height: `${Math.max(10, (value / max) * 100)}%` }}
+              className="rounded-t transition-all duration-200 group-hover:opacity-80"
+              style={{
+                height: `${Math.max(8, (value / max) * 100)}%`,
+                backgroundColor: binColor(idx),
+                opacity: 0.7,
+              }}
             />
-            <span className="mt-2 text-center font-mono text-[10px] text-zinc-500">{idx * 10}</span>
+            <span className="mt-2 text-center font-mono text-[10px] text-zinc-600">{idx * 10}</span>
           </div>
         ))}
       </div>
@@ -37,21 +41,21 @@ export function IssueChart({ data }: IssueProps) {
   const total = entries.reduce((sum, [, value]) => sum + value, 0);
 
   return (
-    <section className="terminal-panel rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5">
-      <div className="mb-4 flex items-center gap-2 text-sm text-zinc-300">
-        <PieChart className="h-4 w-4 text-yellow-400" /> Issues Breakdown
+    <section className="card p-5">
+      <div className="mb-5 flex items-center gap-2 text-sm font-medium text-zinc-200">
+        <PieChart className="h-4 w-4 text-yellow-400" /> Issues by Category
       </div>
-      <div className="space-y-2">
+      <div className="space-y-3">
         {entries.map(([key, value]) => {
           const pct = Math.round((value / total) * 100);
           return (
             <div key={key}>
-              <div className="mb-1 flex justify-between text-xs text-zinc-400">
-                <span className="uppercase">{key}</span>
-                <span>{pct}%</span>
+              <div className="mb-1 flex justify-between text-xs">
+                <span className="capitalize text-zinc-400">{key}</span>
+                <span className="text-zinc-500">{pct}%</span>
               </div>
-              <div className="h-2 rounded bg-zinc-800">
-                <div className="h-full rounded bg-yellow-400/80 transition-all duration-300" style={{ width: `${pct}%` }} />
+              <div className="h-1.5 rounded-full bg-zinc-800/80">
+                <div className="h-full rounded-full bg-yellow-400/70 transition-all duration-300" style={{ width: `${pct}%` }} />
               </div>
             </div>
           );
@@ -67,16 +71,18 @@ export function TrendChart({ points }: TrendProps) {
   const range = Math.max(max - min, 1);
 
   return (
-    <section className="terminal-panel rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-5">
-      <div className="mb-4 flex items-center gap-2 text-sm text-zinc-300">
-        <TrendingUp className="h-4 w-4 text-cyan-400" /> Trend Over Time
+    <section className="card p-5">
+      <div className="mb-5 flex items-center gap-2 text-sm font-medium text-zinc-200">
+        <TrendingUp className="h-4 w-4 text-blue-400" /> Trend Over Time
       </div>
-      <div className="relative h-44 rounded border border-zinc-800 bg-black/20 p-3">
+      <div className="relative h-40 rounded-xl bg-[var(--bg-primary)] p-4">
         <svg viewBox="0 0 300 120" className="h-full w-full">
           <polyline
             fill="none"
-            stroke="#22c55e"
-            strokeWidth="3"
+            stroke="#34d399"
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+            strokeLinecap="round"
             points={points
               .map((point, idx) => {
                 const x = (idx / Math.max(points.length - 1, 1)) * 280 + 10;
@@ -86,7 +92,7 @@ export function TrendChart({ points }: TrendProps) {
               .join(" ")}
           />
         </svg>
-        <div className="mt-1 flex justify-between text-[10px] text-zinc-500">
+        <div className="mt-2 flex justify-between text-[10px] text-zinc-600">
           {points.map((point) => (
             <span key={point.date}>{point.date.slice(5)}</span>
           ))}

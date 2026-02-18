@@ -1,53 +1,43 @@
-import { Download, ScanSearch, Shield } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const steps = [
   {
-    number: "01",
+    step: "1",
     title: "Run the scanner",
-    description:
-      "One command. No install, no signup. The scanner runs locally and checks your OpenClaw configuration.",
-    icon: Download,
+    desc: "One command. No install, no signup. Runs locally on your machine.",
   },
   {
-    number: "02",
+    step: "2",
     title: "Get your report",
-    description:
-      "Instant analysis across 7 security categories. See exactly what's solid and what needs attention.",
-    icon: ScanSearch,
+    desc: "Instant analysis across 7 security categories with a 0-100 score.",
   },
   {
-    number: "03",
+    step: "3",
     title: "Fix & improve",
-    description:
-      "Copy-paste fix commands, verify each one, and watch your score climb. Share your progress with the community.",
-    icon: Shield,
+    desc: "Copy-paste fix commands and verify each one. Share with the community.",
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section className="mt-14">
-      <h2 className="mb-6 font-mono text-sm uppercase tracking-[0.2em] text-zinc-400">
-        How It Works
+    <section className="mt-20">
+      <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold text-zinc-100">
+        How it works
       </h2>
-      <div className="grid gap-4 md:grid-cols-3">
-        {steps.map((step, i) => (
-          <article
-            key={step.number}
-            className="terminal-panel animate-fade-in-up rounded-2xl border border-zinc-800 bg-[#0b0d0c]/70 p-6"
-            style={{ animationDelay: `${i * 150}ms` }}
-          >
-            <div className="mb-4 flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-sm font-bold text-emerald-400">
-                {step.number}
-              </span>
-              <step.icon className="h-5 w-5 text-emerald-400/70" />
+      <div className="mt-6 grid gap-4 md:grid-cols-3">
+        {steps.map((s, i) => (
+          <div key={s.step} className="card flex items-start gap-4 p-5" style={{ animationDelay: `${i * 120}ms` }}>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 font-mono text-sm font-bold text-emerald-400">
+              {s.step}
+            </span>
+            <div>
+              <p className="font-medium text-zinc-100">{s.title}</p>
+              <p className="mt-1 text-sm leading-relaxed text-zinc-500">{s.desc}</p>
             </div>
-            <h3 className="text-lg font-medium text-zinc-100">{step.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-              {step.description}
-            </p>
-          </article>
+            {i < steps.length - 1 && (
+              <ArrowRight className="hidden h-4 w-4 shrink-0 self-center text-zinc-700 md:block" />
+            )}
+          </div>
         ))}
       </div>
     </section>

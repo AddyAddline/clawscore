@@ -12,30 +12,32 @@ export default async function BadgePage({ params }: { params: Promise<{ id: stri
   const html = `<a href=\"https://clawscore.setupmyclaw.in/r/${report.reportId}\"><img src=\"${publicImageUrl}\" alt=\"ClawScore ${report.totalScore}/100\" /></a>`;
 
   return (
-    <main className="mx-auto max-w-4xl px-4 pb-16 pt-8 md:px-6">
-      <h1 className="animate-fade-in text-3xl text-zinc-100">Badge Generator</h1>
-      <p className="mt-2 text-sm text-zinc-400">Embed your security score in README files and dashboards.</p>
+    <main className="mx-auto max-w-3xl px-6 pb-20 pt-10">
+      <h1 className="animate-fade-in font-[family-name:var(--font-display)] text-2xl font-bold text-zinc-100">
+        Badge Generator
+      </h1>
+      <p className="mt-2 text-sm text-zinc-500">Embed your security score in README files and dashboards.</p>
 
-      <section className="terminal-panel animate-fade-in-up mt-6 rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-6">
-        <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">Preview</h2>
+      <div className="card mt-8 p-6">
+        <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">Preview</p>
         <Image src={imageUrl} alt="Badge preview" width={210} height={36} className="mt-3 h-9 w-[210px]" />
-      </section>
+      </div>
 
-      <section className="terminal-panel animate-fade-in-up mt-4 rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-6" style={{ animationDelay: "100ms" }}>
+      <div className="card mt-3 p-6">
         <div className="flex items-center justify-between">
-          <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">Markdown</h2>
+          <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">Markdown</p>
           <CopyButton text={markdown} size="md" />
         </div>
-        <pre className="mt-3 overflow-auto rounded border border-zinc-800 bg-black/30 p-3 text-xs text-emerald-300">{markdown}</pre>
-      </section>
+        <pre className="mt-3 overflow-auto rounded-xl bg-[var(--bg-primary)] p-3.5 font-mono text-xs leading-relaxed text-emerald-400/80">{markdown}</pre>
+      </div>
 
-      <section className="terminal-panel animate-fade-in-up mt-4 rounded-2xl border border-zinc-800 bg-[#0b0d0c]/75 p-6" style={{ animationDelay: "200ms" }}>
+      <div className="card mt-3 p-6">
         <div className="flex items-center justify-between">
-          <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">HTML</h2>
+          <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">HTML</p>
           <CopyButton text={html} size="md" />
         </div>
-        <pre className="mt-3 overflow-auto rounded border border-zinc-800 bg-black/30 p-3 text-xs text-cyan-300">{html}</pre>
-      </section>
+        <pre className="mt-3 overflow-auto rounded-xl bg-[var(--bg-primary)] p-3.5 font-mono text-xs leading-relaxed text-blue-400/80">{html}</pre>
+      </div>
     </main>
   );
 }

@@ -1,40 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-elevated: #1a1a1a;
-  --border: #262626;
+  --bg-primary: #09090b;
+  --bg-card: #111113;
+  --bg-card-hover: #18181b;
+  --border: #1e1e22;
+  --border-hover: #2a2a30;
 
-  --text-primary: #fafafa;
+  --text-primary: #f4f4f5;
   --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
+  --text-muted: #52525b;
 
-  --accent-green: #22c55e;
-  --accent-yellow: #eab308;
-  --accent-red: #ef4444;
-  --accent-blue: #3b82f6;
-
-  --score-gradient: linear-gradient(135deg, #22c55e, #3b82f6);
+  --green: #34d399;
+  --green-dim: rgba(52, 211, 153, 0.12);
+  --yellow: #fbbf24;
+  --yellow-dim: rgba(251, 191, 36, 0.12);
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
+  --blue: #60a5fa;
 }
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-jetbrains);
-  --animate-fade-in-up: fadeInUp 0.5s ease-out both;
-  --animate-fade-in: fadeIn 0.4s ease-out both;
-  --animate-slide-in-left: slideInLeft 0.5s ease-out both;
-  --animate-slide-in-right: slideInRight 0.5s ease-out both;
-  --animate-glow: glow 2s ease-in-out infinite;
-  --animate-gradient-shift: gradientShift 6s ease infinite;
+  --font-display: var(--font-dm-sans), var(--font-geist-sans), sans-serif;
+
+  --animate-fade-in-up: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-fade-in: fadeIn 0.5s ease-out both;
+  --animate-slide-in-left: slideInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-slide-in-right: slideInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-glow: glow 3s ease-in-out infinite;
 }
 
 * {
   border-color: var(--border);
 }
 
-html,
-body {
+html, body {
   min-height: 100%;
 }
 
@@ -42,213 +44,88 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-geist-sans), sans-serif;
-  position: relative;
 }
 
-/* --- Noise / scanline overlays --- */
+/* --- Subtle ambient background --- */
 
 .page-noise {
   pointer-events: none;
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(rgba(250, 250, 250, 0.04) 0.5px, transparent 0.5px);
-  background-size: 2px 2px;
-  opacity: 0.15;
-  z-index: -2;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(52, 211, 153, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(96, 165, 250, 0.04), transparent);
 }
 
-.scanline-overlay {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.03),
-    rgba(255, 255, 255, 0.03) 1px,
-    transparent 1px,
-    transparent 4px
-  );
-  opacity: 0.28;
+/* --- Cards --- */
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-/* --- Terminal panel with hover glow --- */
-
-.terminal-panel {
-  position: relative;
-  overflow: hidden;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+.card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
 }
 
-.terminal-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.02);
-  pointer-events: none;
+/* --- Command glow --- */
+
+.cmd-glow {
+  box-shadow:
+    0 0 0 1px rgba(52, 211, 153, 0.15),
+    0 4px 24px rgba(52, 211, 153, 0.08),
+    0 12px 48px rgba(52, 211, 153, 0.04);
+  transition: box-shadow 0.3s ease;
 }
 
-.terminal-panel:hover {
-  box-shadow: 0 0 24px rgba(34, 197, 94, 0.06);
+.cmd-glow:hover {
+  box-shadow:
+    0 0 0 1px rgba(52, 211, 153, 0.25),
+    0 4px 32px rgba(52, 211, 153, 0.12),
+    0 12px 64px rgba(52, 211, 153, 0.06);
 }
 
-/* --- Terminal glow for CommandCopy --- */
-
-.terminal-glow {
-  box-shadow: 0 0 60px rgba(34, 197, 94, 0.08), 0 0 120px rgba(34, 197, 94, 0.04);
-  transition: box-shadow 0.4s ease;
-}
-
-.terminal-glow:hover {
-  box-shadow: 0 0 80px rgba(34, 197, 94, 0.14), 0 0 160px rgba(34, 197, 94, 0.06);
-}
-
-/* --- Gradient text utility --- */
-
-.gradient-text {
-  background: linear-gradient(135deg, #22c55e 0%, #3b82f6 50%, #22c55e 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientShift 6s ease infinite;
-}
-
-/* --- Text glow --- */
-
-.text-glow {
-  text-shadow: 0 0 20px rgba(34, 197, 94, 0.4), 0 0 40px rgba(34, 197, 94, 0.2);
-}
-
-/* --- Copy success feedback --- */
-
-.copy-success {
-  animation: copyFlash 0.3s ease-out;
-}
-
-@keyframes copyFlash {
-  0% {
-    background-color: rgba(34, 197, 94, 0.2);
-  }
-  100% {
-    background-color: transparent;
-  }
-}
-
-/* --- Glitch hover --- */
-
-.glitch-hover {
-  animation: glitch 220ms linear;
-}
-
-@keyframes glitch {
-  0% {
-    transform: translateX(0);
-    filter: hue-rotate(0deg);
-  }
-  30% {
-    transform: translateX(-1px);
-    filter: hue-rotate(12deg);
-  }
-  60% {
-    transform: translateX(1px);
-    filter: hue-rotate(-10deg);
-  }
-  100% {
-    transform: translateX(0);
-    filter: hue-rotate(0deg);
-  }
-}
-
-/* --- Typing screen --- */
+/* --- Typing cursor --- */
 
 .typing-screen {
-  min-height: 150px;
+  min-height: 140px;
   white-space: pre-wrap;
-  animation: pulseBorder 2s ease-in-out infinite;
 }
 
-@keyframes pulseBorder {
-  0%,
-  100% {
-    box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.12);
-  }
-  50% {
-    box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.28);
-  }
-}
-
-/* --- Animation keyframes --- */
+/* --- Animations --- */
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes glow {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.3));
-  }
-  50% {
-    filter: drop-shadow(0 0 16px rgba(34, 197, 94, 0.6));
-  }
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.25)); }
+  50% { filter: drop-shadow(0 0 12px rgba(52, 211, 153, 0.5)); }
 }
 
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+/* --- Selection --- */
+
+::selection {
+  background: rgba(52, 211, 153, 0.2);
+  color: #f4f4f5;
 }
-
-/* --- Staggered entrance delays --- */
-
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
-.delay-600 { animation-delay: 600ms; }
-.delay-700 { animation-delay: 700ms; }
